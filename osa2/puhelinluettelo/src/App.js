@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
+import Filter from './components/Filter'
+import NewNumber from './components/NewNumber'
 
 const App = () => {
-    const [ persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
-    { name: 'Martti Tienari', number: '040-123456' },
-    { name: 'Arto Järvinen', number: '040-123456' },
-    { name: 'Lea Kutvonen', number: '040-123456' }]) 
-    const [ newName, setNewName ] = useState('')
-    const [ newNumber, setNewNumber] = useState('')
-    const [ newSearch, setNewSearch] = useState('')
-    
+  const [ persons, setPersons] = useState([
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
+    { name: 'Martti Tienari', number: '040-123456', id: 2 },
+    { name: 'Arto Järvinen', number: '040-123456', id: 3},
+    { name: 'Lea Kutvonen', number: '040-123456', id: 4 }]) 
+  const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber] = useState('') 
     // show persons that appear in search input 
     const personsToShow = !newSearch
     ? persons
@@ -38,15 +38,13 @@ const App = () => {
     const handleNumberChange = (event) => {
     setNewNumber(event.target.value)
     }
-    const handleSearchChange = (event) => {
-        console.log(newSearch)
-        setNewSearch(event.target.value)
-    }
+    
     const rows = () => personsToShow.map( person => {
       return(
         <li key={person.id}>{person.name} {person.number}</li>
       )
     })
+
     const valid = () => persons.filter(person => 
     newName === person.name
     )
@@ -54,25 +52,22 @@ const App = () => {
     return (
         <div>
             <h2>Puhelinluettelo</h2>
-        <div>
-          Etsi henkilö: <input value={newSearch} onChange={handleSearchChange}/>
-        </div>
-        <h2>lisää numero</h2>
-        <form  onSubmit={addName} >
-            <div>
-          nimi: <input 
-          value={newName} 
-          onChange={handleNameChange}
-          />
-            </div>
-            <div>
-                numero:  
-                <input 
-                value={newNumber}
-                onChange={handleNumberChange}/>
-            </div>
+            <Filter/>
+            <h2>lisää numero</h2>
+              <form  onSubmit={addName} >
+                <div>
+                nimi: <input 
+                value={newName} 
+                onChange={handleNameChange}/>  
+                </div>
+                <div>
+                  numero:  
+                  <input 
+                  value={newNumber}
+                  onChange={handleNumberChange}/>
+                </div>
                 <button type="submit">lisää</button>
-      </form>
+              </form>
       <h2>Numerot</h2>
       <ul>
           {rows()}
