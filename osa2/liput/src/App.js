@@ -37,20 +37,25 @@ const App = () => {
     }
     else 
       return(rows())
-  } 
+  }
+  const click = (country) => {
+    console.log('moro')
+    setNewSearch(country.name)
+  }
   const rows = () => matches.map(country=>{
       return(
-        <li key={country.population}>{country.name}</li>
+        <li key={country.population}>{country.name}</li>      
       )
     })
   const all = () => matches.map(country => {
     return(
       <div>
         <h1>{country.name}</h1>
+        Capital {country.capital}
+        <br></br>
+        Population {country.population}
         <h2>Languages </h2>
-        <ul>
           {languages(country)}
-        </ul>
         <img width="346" height="200" src={country.flag}/>
      </div>
      
