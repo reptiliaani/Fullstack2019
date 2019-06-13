@@ -1,21 +1,16 @@
-import React, {useState} from 'react'
-
-
-
+import React from 'react'
 const Filter = (props) => {
-const [ newSearch, setNewSearch] = useState('')
-
-const handleSearchChange = (event) => {
-    setNewSearch(event.target.value)
+    
+    const handleSearchChange = (event) => {
+        console.log(event.target.value)
+        props.setNewSearch(event.target.value)
+    }
+    
+    return(
+        <div>
+          Etsi henkilö: <input value={props.newSearch} onChange={handleSearchChange}/>
+        </div>
+    )
 }
 
-
-return(
-    <div>
-        <form>
-            Etsi nimi: <input value={newSearch} onChange={handleSearchChange}/>
-        </form>
-    </div>
-)
-}
 export default Filter
