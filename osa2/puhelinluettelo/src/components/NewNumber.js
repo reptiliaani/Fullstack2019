@@ -20,17 +20,37 @@ const NewNumber = (props) =>{
             if(window.confirm(`${props.newName}/${yui} is already added to the list, want to change number?`)){
                 console.log(yui)
                 axios.put(`${baseUrl}/${yui}`, personObject).then(r => {
-                    console.log(r.data)
                     props.setPersons(props.persons.map(person => person.id !== yui ? person:r.data))
+                    props.setAddedMessage(
+                        `${props.newName} number changed.`
+                      )
+                      setTimeout(() => {
+                        props.setAddedMessage(null)
+                      }, 3000)
                     props.setNewName('')
                     props.setNewNumber('')
                 })
+                .catch( () => {
+                    props.setErrorMessage(
+                      `${props.newName} was already removed from server`
+                    )
+                    setTimeout(() => {
+                      props.setErrorMessage(null)
+                    }, 3000)
+                  })
             }
         }else{
             personService
             .create(personObject).then(returnedPerson => {
                 props.setPersons(props.persons.concat(returnedPerson))
-                
+                props.setAddedMessage(
+                    `${props.newName} was added to the list`
+                  )
+                  setTimeout(() => {
+                    props.setAddedMessage(null)
+                  }, 3000)
+                  props.setNewName('')
+                  props.setNewNumber('')
             })    
         }
       

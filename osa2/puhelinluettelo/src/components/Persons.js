@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import personService from '../services/persons'
 const baseUrl = 'http://localhost:3001/persons'
 
 const Persons = (props) =>{
@@ -13,12 +12,25 @@ const Persons = (props) =>{
     const destroy = (person) => {
 
      if (window.confirm(`Do you really want to remove ${person.name}`)) { 
-        axios.delete(`${baseUrl}/${person.id}`).then(response => {
-          console.log(response)
-          props.setPersons(props.persons.filter(p =>
-            p.id !== person.id 
-          ))
-        })
+        axios.delete(`${baseUrl}/${person.id}`)
+          .then(response => {
+            props.setPersons(props.persons.filter(p => p.id !== person.id ))
+          })
+          .catch( () => {
+            props.setErrorMessage(
+              `${person.name} was already removed from server`
+            )
+            setTimeout(() => {
+              props.setErrorMessage(null)
+            }, 5000)
+          })
+          props.setErrorMessage(
+            `${person.name} was removed from the list`
+          )
+          setTimeout(() => {
+            props.setErrorMessage(null)
+          }, 3000)
+          
       }
     }
     const rows = () => personsToShow.map( person => {
