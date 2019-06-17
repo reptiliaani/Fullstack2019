@@ -1,7 +1,7 @@
 import React from 'react'
 import personService from '../services/persons'
 import axios from 'axios'
-const baseUrl = '/api/persons'
+const baseUrl = 'https://immense-tundra-45739.herokuapp.com/api/persons'
 
 const NewNumber = (props) =>{
     const valid = () => props.persons.filter(person => 
