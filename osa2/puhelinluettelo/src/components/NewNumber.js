@@ -1,7 +1,7 @@
 import React from 'react'
 import personService from '../services/persons'
 import axios from 'axios'
-const baseUrl = 'http://localhost:3001/api/persons'
+const baseUrl = '/api/persons'
 
 const NewNumber = (props) =>{
     const valid = () => props.persons.filter(person => 
